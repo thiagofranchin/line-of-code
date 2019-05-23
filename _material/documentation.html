@@ -1,0 +1,19 @@
+- Create local branch ‘gh-pages’.
+
+- Create a new file in root directory ‘vue.config.js’
+
+- In ‘vue.config.js’ file paste the following code:
+ // vue.config.js
+module.exports = {
+  publicPath: 'nome-do-repositorio'
+}
+
+- In .gitignore comment the line '/dist'
+
+$git add dist
+$git commit -m "Initial comments"
+$git subtree push --prefix dist origin gh-pages
+
+- On Github go 'settings' and select 'gh-pages', click 'Save'
+
+========================
