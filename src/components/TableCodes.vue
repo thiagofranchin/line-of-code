@@ -1,8 +1,12 @@
 <template>
   <div class="container my-5">
     <div class="row">
-      <div class="col-12">
-        <b-card>
+      <div class="col-12 mb-2">
+        <b-button variant="outline-primary" size="sm" class="float-right"
+          :pressed.sync="formLoad">Inserir</b-button>
+      </div>
+      <div class="col-12" v-if="formLoad">
+        <b-card class="form-insert bg-secondary">
           <b-form-group label="Categoria:">
             <b-form-input type="text" size="sm"
               v-model="tableCodesObj.categories"
@@ -26,31 +30,29 @@
 
     <hr>
 
-
-    <div class="row bg-dark text-white">
-      <div class="col-2 border">Categoria</div>
-      <div class="col-4 border">Comandos</div>
-      <div class="col-4 border">Descrição</div>
-      <div class="col-2 border">Opções</div>
-    </div>
-
-    <div class="row" v-for="(list, id) in codeListsArray" :key="id">
-      <div class="col-2 border">
-        {{list.categories}}
-      </div>
-      <div class="col-4 border">
-          <pre>{{list.commands}}</pre>
-      </div>
-      <div class="col-4 border">
-        {{list.descriptions}}
-      </div>
-      <div class="col-2 border">
-        <b-button variant="warning" size="sm"
-          @click="loadCode(id)">Alterar</b-button>
-        <b-button variant="danger" size="sm" class="ml-2"
-          @click="deleteCode(id)">Excluir</b-button>
-      </div>
-    </div>
+    <table class="table table-sm table-striped table-dark table-hover">
+      <thead>
+        <tr>
+          <th scope="col">Categoria</th>
+          <th scope="col">Comandos</th>
+          <th scope="col">Descrição</th>
+          <th scope="col">Opções</th>
+        </tr>
+      </thead>
+      <tbody v-for="(list, id) in codeListsArray" :key="id">
+        <tr>
+          <th><pre class="font-system">{{list.categories}}</pre></th>
+          <th><pre>{{list.commands}}</pre></th>
+          <th><pre class="font-system">{{list.descriptions}}</pre></th>
+          <th>
+            <b-button variant="warning" size="sm"
+              @click="loadCode(id)">Alterar</b-button>
+            <b-button variant="danger" size="sm" class="ml-2"
+              @click="deleteCode(id)">Excluir</b-button>
+          </th>
+        </tr>
+      </tbody>
+    </table>
 
   </div>
 </template>
@@ -66,7 +68,8 @@ export default {
         commands: '',
         descriptions: '',
         examples: ''
-      }
+      },
+      formLoad: false
     }
   },
   methods: {
@@ -89,11 +92,6 @@ export default {
         })
     },
     saveCode() {
-      // this.$http.post('tableCodesObj.json', this.tableCodesObj)
-      //   .then(() => {
-      //     this.clear()
-      //     this.getListCode()
-      //   })
       const typeSave = this.id ? 'patch' : 'post'
       const finalUrl = this.id ? `/${this.id}.json` : '.json'
       this.$http[typeSave](`/tableCodesObj${finalUrl}`, this.tableCodesObj)
@@ -114,3 +112,13 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+  @import '../scss/style';
+  pre {
+    font-size: 1rem;
+    &.font-system {
+      font-family: $font-system;
+    }
+  }
+</style>
