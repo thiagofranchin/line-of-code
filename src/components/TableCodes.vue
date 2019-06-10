@@ -33,10 +33,10 @@
     <table class="table table-sm table-striped table-dark table-hover">
       <thead>
         <tr>
-          <th scope="col">Categoria</th>
-          <th scope="col">Comandos</th>
-          <th scope="col">Descrição</th>
-          <th scope="col">Opções</th>
+          <th class="category">Categoria</th>
+          <th class="commands">Comandos</th>
+          <th class="description">Descrição</th>
+          <th class="options">Opções</th>
         </tr>
       </thead>
       <tbody v-for="(list, id) in codeListsArray" :key="id">
@@ -115,10 +115,17 @@ export default {
 
 <style lang="scss" scoped>
   @import '../scss/style';
-  pre {
-    font-size: 1rem;
-    &.font-system {
-      font-family: $font-system;
+  table {
+    font-size: .875rem;
+
+    .options {
+      width: 140px;
+    }
+    pre {
+      white-space: pre-line;
+      &.font-system {
+        font-family: $font-system;
+      }
     }
   }
 </style>
