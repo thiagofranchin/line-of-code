@@ -30,6 +30,8 @@
 
     <hr>
 
+    <!-- <input type="text" v-model="search" placeholder="Search table" class="w-100 mb-5" /> -->
+
     <table class="table table-sm table-striped table-dark table-hover">
       <thead>
         <tr>
@@ -46,7 +48,7 @@
           <th><pre class="font-system">{{list.descriptions}}</pre></th>
           <th>
             <b-button variant="warning" size="sm"
-              @click="loadCode(id)">Alterar</b-button>
+              @click="loadCode(id, true)">Alterar</b-button>
             <b-button variant="danger" size="sm" class="ml-2"
               @click="deleteCode(id)">Excluir</b-button>
           </th>
@@ -69,7 +71,8 @@ export default {
         descriptions: '',
         examples: ''
       },
-      formLoad: false
+      formLoad: false,
+      search: ''
     }
   },
   methods: {
@@ -83,6 +86,7 @@ export default {
     loadCode(id) {
       this.id = id
       this.tableCodesObj = { ...this.codeListsArray[id] }
+      this.formLoad = true;
     },
     deleteCode(id) {
       this.$http.delete(`/tableCodesObj/${id}.json`)
